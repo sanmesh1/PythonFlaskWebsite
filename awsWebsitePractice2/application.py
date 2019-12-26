@@ -7,92 +7,92 @@ from werkzeug.utils import secure_filename
 from flask import render_template
 
 UPLOAD_FOLDER = 'static'
-ALLOWED_EXTENSIONS = {'jpg'}
+ALLOWED_EXTENSIONS = {'jpg', 'png'}
 
 application = Flask(__name__)
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #############################################################################
 ##########QuantizeRGBFunction
-##import numpy as np
-##import matplotlib.pyplot as plt
-##from sklearn.cluster import KMeans
-##from sklearn.metrics import pairwise_distances_argmin
-##from sklearn.datasets import load_sample_image
-##from sklearn.utils import shuffle
-##from time import time
-##
-###parts of code taken from https://scikit-learn.org/stable/auto_examples/cluster/plot_color_quantization.html
-##
-##def quantizeRGB(origImg, k):
-##    ### Convert to floats instead of the default 8 bits integer coding. Dividing by
-##    ### 255 is important so that plt.imshow behaves works well on float data (need to
-##    ### be in the range [0-1])
-##    origImg = np.array(origImg, dtype=np.float64) / 255
-##
-##    # Load Image and transform to a 2D numpy array.
-##    w, h, d = original_shape = tuple(origImg.shape)
-##    image_array = np.reshape(origImg, (w * h, d))
-##    kmeans = KMeans(n_clusters=k, random_state=0).fit(image_array)
-##
-##    def recreate_image(codebook, labels, w, h):
-##        """Recreate the (compressed) image from the code book & labels"""
-##        d = codebook.shape[1]
-##        image = np.zeros((w, h, d))
-##        label_idx = 0
-##        for i in range(w):
-##            for j in range(h):
-##                image[i][j] = codebook[labels[label_idx]]
-##                label_idx += 1
-##        return image
-##
-##
-##    outputImg = (255*recreate_image(kmeans.cluster_centers_, kmeans.labels_, w, h)).astype('uint8')
-##    meanColors = kmeans.cluster_centers_*255
-##    return outputImg, meanColors
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.metrics import pairwise_distances_argmin
+from sklearn.datasets import load_sample_image
+from sklearn.utils import shuffle
+from time import time
+
+#parts of code taken from https://scikit-learn.org/stable/auto_examples/cluster/plot_color_quantization.html
+
+def quantizeRGB(origImg, k):
+    ### Convert to floats instead of the default 8 bits integer coding. Dividing by
+    ### 255 is important so that plt.imshow behaves works well on float data (need to
+    ### be in the range [0-1])
+    def recreate_image(codebook, labels, w, h):
+        """Recreate the (compressed) image from the code book & labels"""
+        d = codebook.shape[1]
+        image = np.zeros((w, h, d))
+        label_idx = 0
+        for i in range(w):
+            for j in range(h):
+                image[i][j] = codebook[labels[label_idx]]
+                label_idx += 1
+        return image
+    if(isinstance(np.max(origImg), np.integer)): 
+        origImg = np.array(origImg, dtype=np.float64) / 255
+
+        # Load Image and transform to a 2D numpy array.
+        w, h, d = original_shape = tuple(origImg.shape)
+        image_array = np.reshape(origImg, (w * h, d))
+        kmeans = KMeans(n_clusters=k, random_state=0).fit(image_array)
+
+        outputImg = (255*recreate_image(kmeans.cluster_centers_, kmeans.labels_, w, h)).astype('uint8')
+        meanColors = kmeans.cluster_centers_*255
+        return outputImg, meanColors
+    else:
+        print("origImg", origImg)
+        origImg = np.array(origImg, dtype=np.float64)
+
+        # Load Image and transform to a 2D numpy array.
+        w, h, d = original_shape = tuple(origImg.shape)
+        image_array = np.reshape(origImg, (w * h, d))
+        kmeans = KMeans(n_clusters=k, random_state=0).fit(image_array)
+        
+        outputImg = (recreate_image(kmeans.cluster_centers_, kmeans.labels_, w, h))
+        meanColors = kmeans.cluster_centers_
+        return outputImg, meanColors        
 ##
 ####################################################################################
 
 ########clusterImageFuncton
 import numpy as np
 import matplotlib.pyplot as plt
-##from sklearn.cluster import KMeans
-##from sklearn.metrics import pairwise_distances_argmin
-##from sklearn.datasets import load_sample_image
-##from sklearn.utils import shuffle
+from sklearn.cluster import KMeans
+from sklearn.metrics import pairwise_distances_argmin
+from sklearn.datasets import load_sample_image
+from sklearn.utils import shuffle
 from time import time
+import os
 ##import quantizeRGB
 
-##def clusterImage(imageName, k_rgb1):
-##
-##    ##quantizeRGB#####################################
-##    #k_rgb1 = 8
-##    #imageName = 'beautiful'
-##
-##    #load image
-##    img1 = np.array(plt.imread(imageName + '.jpg'))
-##    img2 = np.array(plt.imread(imageName + '.jpg'))
-##    imgCopy = np.array(plt.imread(imageName + '.jpg'))
-##
-##    quantizeRGBImg1, quantizeRGBmeanColors1 = np.array(quantizeRGB(img1, k_rgb1))
-##    clusteredFileName = imageName+'_kmeansIs'+str(k_rgb1)+'.jpg'
-##    plt.imsave(clusteredFileName, quantizeRGBImg1)
-##    return clusteredFileName
 def clusterImage(imageName, k_rgb1):
+
     ##quantizeRGB#####################################
     #k_rgb1 = 8
     #imageName = 'beautiful'
 
-    #load image
-    img1 = np.array(plt.imread(imageName + '.jpg'))
-    img2 = np.array(plt.imread(imageName + '.jpg'))
-    imgCopy = np.array(plt.imread(imageName + '.jpg'))
 
-##    quantizeRGBImg1, quantizeRGBmeanColors1 = np.array(quantizeRGB(img1, k_rgb1))
-    clusteredFileName = imageName+'_kmeansIs'+str(k_rgb1)+'.jpg'
-    print(clusteredFileName)
-##    plt.imsave(clusteredFileName, quantizeRGBImg1)
-    plt.imsave(clusteredFileName, img1)
+    filename, file_extension = os.path.splitext(imageName)
+    #load image
+    img1 = np.array(plt.imread(imageName))
+    img2 = np.array(plt.imread(imageName))
+    imgCopy = np.array(plt.imread(imageName))
+
+    quantizeRGBImg1, quantizeRGBmeanColors1 = np.array(quantizeRGB(img1, k_rgb1))
+##    clusteredFileName = imageName[0:-4]+'_kmeansIs'+str(k_rgb1)+imageName[-4:]
+    clusteredFileName = filename+'_kmeansIs'+str(k_rgb1)+file_extension
+    print("clusteredFileNameNow", clusteredFileName)
+    plt.imsave(clusteredFileName, quantizeRGBImg1)
     return clusteredFileName
 ###########################################################################
 
@@ -139,50 +139,11 @@ def uploaded_file(filename, clusters):
 ##    clusters = 3
     clusters = int(clusters)
     print("filename", filename)
-    clusteredFileName = clusterImage("static/"+filename[0:-4], clusters)
-    print(clusteredFileName)
+    clusteredFileName = clusterImage("static/"+filename, clusters)
+    print('/' + clusteredFileName)
     print('/' + "static/"+filename)
     return render_template("uploaded.html", input_image = '/' + "static/"+filename, clustered_image =  '/' + clusteredFileName)
 if __name__ == "__main__":
     application.debug = True
     application.run()	
-
-
-
-
-
-##from flask import Flask
-##
-### print a nice greeting.
-##def say_hello(username = "World"):
-##    return '<p>Hello %s!</p>\n' % username
-##
-### some bits of text for the page.
-##header_text = '''
-##    <html>\n<head> <title>EB Flask Test</title> </head>\n<body>'''
-##instructions = '''
-##    <p><em>Hint</em>: This is a RESTful web service! Append a username
-##    to the URL (for example: <code>/Thelonious</code>) to say hello to
-##    someone specific.</p>\n'''
-##home_link = '<p><a href="/">Back</a></p>\n'
-##footer_text = '</body>\n</html>'
-##
-### EB looks for an 'application' callable by default.
-##application = Flask(__name__)
-##
-### add a rule for the index page.
-##application.add_url_rule('/', 'index', (lambda: header_text +
-##    say_hello() + instructions + footer_text))
-##
-### add a rule when the page is accessed with a name appended to the site
-### URL.
-##application.add_url_rule('/<username>', 'hello', (lambda username:
-##    header_text + say_hello(username) + home_link + footer_text))
-##
-### run the app.
-##if __name__ == "__main__":
-##    # Setting debug to True enables debug output. This line should be
-##    # removed before deploying a production app.
-##    application.debug = True
-##    application.run()
 
