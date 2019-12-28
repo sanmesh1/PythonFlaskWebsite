@@ -16,7 +16,7 @@ application.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024    # 2 Mb limit
 
 @application.errorhandler(413)
 def error413(e):
-    return redirect(url_for('upload_file'))
+    return redirect(url_for('kmeansOnImage'))
                     
 #############################################################################
 ##########QuantizeRGBFunction
@@ -69,7 +69,6 @@ def quantizeRGB(origImg, k):
         return outputImg, meanColors        
 ##
 ####################################################################################
-
 ########clusterImageFuncton
 import numpy as np
 import matplotlib.pyplot as plt
@@ -101,15 +100,25 @@ def clusterImage(imageName, k_rgb1):
     plt.imsave(clusteredFileName, quantizeRGBImg1)
     return clusteredFileName
 ###########################################################################
-
+@application.route('/')
+def index():
+    return render_template('index.html')
+##    return '''
+##    <!doctype html>
+##    <html>
+##    <body>
+##        <p><a href="{{ url_for('kmeansOnImage') }}">Check out this cool form!</a></p>
+##    </body>
+##    </html>
+##    '''
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@application.route('/', methods=['GET', 'POST'])
-def upload_file():
-##############################
-#clean files
+@application.route('/kmeansOnImage', methods=['GET', 'POST'])
+def kmeansOnImage():
+    ##############################
+    #clean files
     import os, time, sys
     print("Entered clean files")
 
@@ -122,8 +131,8 @@ def upload_file():
         if (now - os.stat(f1).st_mtime) > 60*numMinutes:
             if os.path.isfile(f1) and os.path.isdir(f1) == False and f1.lower().endswith(('.png', '.jpg', '.jpeg')):
                 os.remove(f1)
-###clean files
-################################
+    ###clean files
+    ################################
 
     if request.method == 'POST':
         # check if the post request has the file part

@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title> Sanmesh</title>
+	<link href="{{ url_for('static', filename="css/style.css") }}" rel="stylesheet">
+</head>
+<body>
+	<h1>Sanmesh</h1>
+	
+	<p class="warning">Flask is in debug mode. This is not safe for production.</p>
+	<form>
+         <input type="button" onclick="window.location.href = '{{ url_for('kmeansOnImage') }}';" value="w3docs"/>
+      </form>
+	  
+	  <p><a href="{{ url_for('kmeansOnImage') }}">Check out this cool form!</a></p>
+</body>
+</html>
