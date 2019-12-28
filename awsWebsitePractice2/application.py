@@ -102,6 +102,39 @@ def allowed_file(filename):
 
 @application.route('/', methods=['GET', 'POST'])
 def upload_file():
+##############################
+#clean files
+    import os, time, sys
+    print("Entered clean files")
+
+    now = time.time()
+    path = "static"
+    numMinutes = 10
+
+    for f in os.listdir(path):
+        f1 = os.path.join(path, f)
+        if (now - os.stat(f1).st_mtime) > 60*numMinutes:
+            if os.path.isfile(f1) and os.path.isdir(f1) == False and f1.lower().endswith(('.png', '.jpg', '.jpeg')):
+                os.remove(f1)
+##
+##    now = time.time()
+##    path = "static/static"            
+##    for f in os.listdir(path):
+##        f1 = os.path.join(path, f)
+##        if (now - os.stat(f1).st_mtime) > 60*numMinutes:
+##            if os.path.isfile(f1) and os.path.isdir(f1) == False and f1.lower().endswith(('.png', '.jpg', '.jpeg')):
+##                os.remove(f1)
+##
+##    now = time.time()
+##    path = "static/static/upload"          
+##    for f in os.listdir(path):
+##        f1 = os.path.join(path, f)
+##        if (now - os.stat(f1).st_mtime) > 60*numMinutes:
+##            if os.path.isfile(f1) and os.path.isdir(f1) == False and f1.lower().endswith(('.png', '.jpg', '.jpeg')):
+##                os.remove(f1)
+###clean files
+################################
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -136,7 +169,6 @@ from flask import send_from_directory
 
 @application.route('/uploads/<filename>/<clusters>')
 def uploaded_file(filename, clusters):
-##    clusters = 3
     clusters = int(clusters)
     print("filename", filename)
     clusteredFileName = clusterImage("static/"+filename, clusters)
