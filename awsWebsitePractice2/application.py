@@ -80,11 +80,19 @@ from flask import send_from_directory
 @application.route('/uploads/<filename>/<clusters>')
 def uploaded_file(filename, clusters):
     clusters = int(clusters)
-    print("filename", filename)
-    clusteredFileName = kmeansClusterRGBImagePath("static/"+filename, clusters)
-    print('/' + clusteredFileName)
-    print('/' + "static/"+filename)
-    return render_template("uploaded.html", input_image = '/' + "static/"+filename, clustered_image =  '/' + clusteredFileName)
+    clusteredFileName = []
+    if clusters != 0:
+        clusteredFileName.append('/'+kmeansClusterRGBImagePath("static/"+filename, clusters))
+        clusterList = [clusters]
+##        print("filename", filename)
+##        print('/' + clusteredFileName)
+##        print('/' + "static/"+filename)
+    else:
+        clusterList = [3,8,15]
+        for i in clusterList:
+            clusteredFileName.append('/'+kmeansClusterRGBImagePath("static/"+filename, i))
+    return render_template("uploaded.html", input_image = '/' + "static/"+filename, clusteredFileName = clusteredFileName, clusterList = clusterList)
+##    return render_template("uploaded.html", input_image = '/' + "static/"+filename, clustered_image =  '/' + clusteredFileName)
 if __name__ == "__main__":
     application.debug = True
     application.run()	

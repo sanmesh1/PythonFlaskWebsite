@@ -9,7 +9,7 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-    <a href='{{ url_for('kmeansRGBOnImage') }}' class="w3-bar-item w3-button"><b>Sanmeshkumar Udhayakumar Homepage</b></a>
+    <a href='{{ url_for('index') }}' class="w3-bar-item w3-button"><b>Sanmeshkumar Udhayakumar Homepage</b></a>
     <!-- Float links to the right. Hide them on small screens -->
 	<!--
     <div class="w3-right w3-hide-small">
@@ -45,7 +45,7 @@
 	<form method=post enctype=multipart/form-data>
       <input type=file name=file>
       <br>
-      Number of Clusters: <input type="number" name="quantity" min="1" max="30">
+      Number of Clusters: <input type="number" name="quantity" min="0" max="30">
       <br>
       <input type=submit value=Upload>
     </form>

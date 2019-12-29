@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Index</title>
-</head>
+<title>Kmeans Clustered Images</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
+	<!-- Navbar (sit on top) -->
+	<div class="w3-top">
+	  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+		<a href='{{ url_for('kmeansRGBOnImage') }}' class="w3-bar-item w3-button"><b>Sanmeshkumar Udhayakumar Homepage</b></a>
+		<!-- Float links to the right. Hide them on small screens -->
+		<!--
+		<div class="w3-right w3-hide-small">
+		  <a href="#projects" class="w3-bar-item w3-button">Projects</a>
+		  <a href="#about" class="w3-bar-item w3-button">About</a>
+		  <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+		</div>
+		-->
+	  </div>
+	</div>
+	<br>
+	<br>
+	<br>
 	<h1> Input Image </h1>
     <img src="{{ input_image }}" alt="User Image">
-	<h1>Clustered Image</h1>
-    <img src="{{ clustered_image }}" alt="Clustered Image">
+	<br>
+	<br>
+	<h1> Clustered Images</h1>
+	<div class="w3-row-padding">
+	{%for i in range(clusteredFileName|length)%}
+		<!--
+		<h1>Clusters = {{clusterList[i]}}</h1>
+		<img src="{{ clusteredFileName[i] }}" alt="Clustered Image">
+		-->
+		<div class="w3-col l3 m6 w3-margin-bottom">
+		  <div class="w3-display-container">
+			<div class="w3-display-topleft w3-black w3-padding">Clusters = {{clusterList[i]}}</div>
+			<img src="{{ clusteredFileName[i] }}" alt="House" style="width:250px;height:250px;">
+		  </div>
+		</div>
+	{%endfor%}
+	</div>
 </body>
 </html>
