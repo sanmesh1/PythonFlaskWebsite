@@ -129,7 +129,8 @@ def kmeansOnImage():
     for f in os.listdir(path):
         f1 = os.path.join(path, f)
         if (now - os.stat(f1).st_mtime) > 60*numMinutes:
-            if os.path.isfile(f1) and os.path.isdir(f1) == False and f1.lower().endswith(('.png', '.jpg', '.jpeg')):
+            print(("Sanmesh1" in f), " directory ", f)
+            if ("Sanmesh1" in f) == False and os.path.isfile(f1) and os.path.isdir(f1) == False and f1.lower().endswith(('.png', '.jpg', '.jpeg')):
                 os.remove(f1)
     ###clean files
     ################################
