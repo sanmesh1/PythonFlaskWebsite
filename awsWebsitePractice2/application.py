@@ -88,7 +88,7 @@ def uploaded_file(filename, clusters):
 ##        print('/' + clusteredFileName)
 ##        print('/' + "static/"+filename)
     else:
-        clusterList = [3,8,15]
+        clusterList = [3,6,9]
         for i in clusterList:
             clusteredFileName.append('/'+kmeansClusterRGBImagePath("static/"+filename, i))
     return render_template("uploaded.html", input_image = '/' + "static/"+filename, clusteredFileName = clusteredFileName, clusterList = clusterList)

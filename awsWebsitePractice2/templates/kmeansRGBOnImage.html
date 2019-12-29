@@ -53,75 +53,36 @@
   
   <!-- Example Images -->
   <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Examples</h3>
   </div>
 
-  <div class="w3-row-padding">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Image Kmeans Clustering</div>
-        <a href='{{ url_for('kmeansRGBOnImage') }}'><img src="{{url_for('static', filename='abe_kmeansIs12Sanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;"></a>
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Facial Emotion Detection</div>
-        <img src="{{url_for('static', filename='emotionDetectionCoverSanmesh1.jpeg')}}" alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">This Python Flask AWS Website</div>
-        <img src="{{url_for('static', filename='WebsiteProjectCoverSanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Nba competition between conferences</div>
-        <img src="{{url_for('static', filename='lebronWhatFaceSanmesh1.png')}}"  alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-  </div>
+  	<h1> Input Image </h1>
+    <img src="{{url_for('static', filename='flowersSanmesh1.jpg')}}" alt="User Image" style="width:250px;height:250px;">
+	<br>
+	<br>
+	<h1> Clustered Images</h1>
+	<div class="w3-row-padding">
 
-  <div class="w3-row-padding">
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Movie Revenue Prediction Using Machine Learning</div>
-        <img src="{{url_for('static', filename='batmanSanmesh1.jpeg')}}" alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Under Construction</div>
-        <img src="{{url_for('static', filename='underConstructionSanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Under Construction</div>
-        <img src="{{url_for('static', filename='underConstructionSanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Under Construction</div>
-        <img src="{{url_for('static', filename='underConstructionSanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
-      </div>
-    </div>
-  </div>
-
-  <!-- About Section -->
-  <div class="w3-container w3-padding-32" id="about">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
-    <p>I'm Sanmeshkumar Udhayakumar (Sanmesh for short), a current Georgia Tech Masters student in CS, with machine learning specialization. I have 2+ years of industry and research experience, with Computer Science and Electrical Engineering Education, with an interest/experience in machine learning, text and visual analytics, robotics, embedded programming, and motor control. 
-    </p>
-	<p>
-	I'm seeking an internship for Summer 2020.
-	</p>
-	<p>
-	My linkedin: https://www.linkedin.com/in/sanmeshkumar-udhayakumar-19b31580/
-	</p>
-  </div>
+		<div class="w3-col l3 m6 w3-margin-bottom">
+		  <div class="w3-display-container">
+			<div class="w3-display-topleft w3-black w3-padding">Clusters = 3</div>
+			<img src="{{url_for('static', filename='flowers_kmeansIs3Sanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
+		  </div>
+		</div>
+		<div class="w3-col l3 m6 w3-margin-bottom">
+		  <div class="w3-display-container">
+			<div class="w3-display-topleft w3-black w3-padding">Clusters = 6</div>
+			<img src="{{url_for('static', filename='flowers_kmeansIs6Sanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
+		  </div>
+		</div>
+		<div class="w3-col l3 m6 w3-margin-bottom">
+		  <div class="w3-display-container">
+			<div class="w3-display-topleft w3-black w3-padding">Clusters = 9</div>
+			<img src="{{url_for('static', filename='flowers_kmeansIs9Sanmesh1.jpg')}}" alt="House" style="width:250px;height:250px;">
+		  </div>
+		</div>			
+	</div>
+  
 <!-- 
   <div class="w3-row-padding w3-grayscale">
     <div class="w3-col l3 m6 w3-margin-bottom">
