@@ -9,38 +9,49 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-    <a href="#home" class="w3-bar-item w3-button"><b>Sanmeshkumar Udhayakumar Homepage</b></a>
+    <a href='{{ url_for('kmeansRGBOnImage') }}' class="w3-bar-item w3-button"><b>Sanmeshkumar Udhayakumar Homepage</b></a>
     <!-- Float links to the right. Hide them on small screens -->
+	<!--
     <div class="w3-right w3-hide-small">
       <a href="#projects" class="w3-bar-item w3-button">Projects</a>
       <a href="#about" class="w3-bar-item w3-button">About</a>
       <a href="#contact" class="w3-bar-item w3-button">Contact</a>
     </div>
+	-->
   </div>
 </div>
 
-<!-- Header -->
-<!--
-<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-  <img class="w3-image" src="{{url_for('static', filename='dankMemesSanmesh.jpg')}}" alt="Architecture" width="1500" height="800">
-  <div class="w3-display-middle w3-margin-top w3-center">
-    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>BR</b></span> <span class="w3-hide-small w3-text-light-grey">Architects</span></h1>
-  </div>
-</header>
--->
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
   <!-- Welcome Section -->
   <div class="w3-container w3-padding-32" id="welcome">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Welcome</h3>
-    <p>This is Sanmeshkumar Udhayakumar's home page. The purpose of this website is to record and showcase my projects I have done at Georgia Tech and at work in a way presentable to others.
+    <p>Description of project: This project is applying kmeans on the RGB values of an image.
     </p>
-	<p>This website was built using Python Flask framework with AWS as the host.
+	<p>Applications: 
+	<br>1. Color-based Image Segmentation
+	<br> <a href="https://www.youtube.com/watch?v=yR7k19YBqiw">Visit our HTML tutorial</a>
+	<br> <a href="https://www.mathworks.com/help/images/color-based-segmentation-using-k-means-clustering.html">Color Segmentation Article</a>	
+	<br>2. Image compression
+	<br> <a href="https://medium.com/@agarwalvibhor84/image-compression-using-k-means-clustering-8c0ec055103f">Article on image compression</a>
     </p>
-	 <img src="{{url_for('static', filename='sanmeshProfilePicLinkedInSanmesh1.jfif')}}" alt="House" style="width:20%">
+	<p>How to use program: 
+	<br>1. Upload an image you want to do kmeans RGB clustering on. It has to be a jpg or png.
+	<br>2. Enter the number of clusters/colors you want to represent the image. If you want to try a bunch of different clusters all at once, enter 0 for the number of clusters.
+	<br>3. Press the submit button.	
+	</p>
+	 <img src="{{url_for('static', filename='abe_kmeansIs12Sanmesh1.jpg')}}" alt="House" style="width:20%">
+	 
+	<form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <br>
+      Number of Clusters: <input type="number" name="quantity" min="1" max="30">
+      <br>
+      <input type=submit value=Upload>
+    </form>
   </div>
   
-  <!-- Project Section -->
+  <!-- Example Images -->
   <div class="w3-container w3-padding-32" id="projects">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
   </div>
